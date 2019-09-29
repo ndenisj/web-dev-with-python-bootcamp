@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>There are {{ count }} words in your text</h1>
+
+    <a href="{% url 'home' %}">Count Again</a> <!-- create the about page with a link -->
+
+    <p>{{ fulltext }}</p>
+
+    {% for word, count in worddictionary %}
+        <h2>{{ word }} - {{ count }} times</h2>
+    {% endfor %}
+</body>
+</html>
