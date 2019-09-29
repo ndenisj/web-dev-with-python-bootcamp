@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <p>{{ sub_title }}</p>
+    <form action="{% url 'count' %}" method="post">
+        {% csrf_token %}
+        <p>
+            <textarea name="fulltext" cols="30" rows="10"></textarea>
+        </p>
+        <p><button type="submit">COUNT</button></p>
+    </form>
+</body>
+</html>
