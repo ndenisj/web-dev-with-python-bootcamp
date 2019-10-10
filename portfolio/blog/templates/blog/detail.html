@@ -1,6 +1,6 @@
+
 <!doctype html>
 <html lang="en">
-{% load staticfiles %}
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,15 +38,15 @@
     <header>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="{% url 'home' %}">Denis Jay</a>
+          <a class="navbar-brand" href="#">Denis Jay</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
                 <a class="nav-item nav-link" href="#">Twitter</a>
-                <a class="nav-item nav-link" target="_blank" href="{% static 'gitkraken-resume.pdf' %}">Resume</a>
-                <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
+                <a class="nav-item nav-link" href="#">Resume</a>
+                <a class="nav-item nav-link active" href="#">Blog</a>
             </div>
           </div>
         </nav>
@@ -55,34 +55,14 @@
 
 <main role="main">
 
-  <section class="jumbotron text-center">
-    <div class="container">
-        <img src="{% static 'phoyo.jpg' %}" class="img-fluid" style="height: 200px; width: 180px;">
-      <h1 class="jumbotron-heading">Hi, Am Denis</h1>
-      <p class="lead text-muted">Hey am DEnis and i love to code.</p>
-      <p>
-        <a href="mailto" class="btn btn-primary my-2">Email Me</a>
-      </p>
-    </div>
-  </section>
-
-  <div class="album py-5 bg-light">
     <div class="container">
 
-      <div class="row">
-            {% for job in jobs.all %}
-          <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="{{ job.image.url }}" alt="{{ job.title }}" class="bd-placeholder-img card-img-top" width="100%" height="225"/>
-            <div class="card-body">
-              <p class="card-text">{{ job.summary }}</p>
-            </div>
-          </div>
-        </div>
-            {% endfor %}
-      </div>
+        <h1 class="display-4 font-weight-normal">{{ blog.title }}</h1>
+        <p class="blog-post-meta">{{ blog.pub_date }}</p>
+        <img src="{{ blog.image.url }}" class="img-fluid" style="height: 250px;" alt="">
+        <p class="lead font-weight-normal mt-3">{{ blog.body }}</p>
+
     </div>
-  </div>
 
 </main>
 
