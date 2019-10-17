@@ -1,4 +1,7 @@
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'product/home.html')
+    context = {
+        'page_title': 'Welcome to product hunt',
+    }
+    return render(request, 'product/home.html', context)
