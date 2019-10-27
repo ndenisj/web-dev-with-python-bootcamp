@@ -1,15 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Product
 
+
 def home(request):
+    products = Product.objects.all()
     context = {
         'page_title': 'Welcome to product hunt',
+        'products': products,
     }
     return render(request, 'product/home.html', context)
 
-@login_required
+
+@login_required(login_url='login')
 def create(request):
     if request.method == 'POST':
         product = Product()
@@ -24,13 +28,32 @@ def create(request):
         product.hunter = request.user
 
         ################
-        #product.pub_date = timezone.datetime.now()
-        #product.votes_total = 1
+        # product.pub_date = timezone.datetime.now()
+        # product.votes_total = 1
         product.save()
-        #redirect to details
+        # redirect to details
         return redirect('home')
     else:
         context = {
             'page_title': 'Create new product',
         }
         return render(request, 'product/create.html', context)
+
+
+@login_required(login_url='login')
+def detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    context = {
+        'page_title': 'Product detail',
+        'product': product,
+    }
+    return render(request, 'product/detail.html', context)
+
+
+@login_required(login_url='login')
+def upvote(request, product_id):
+    if request.method == 'POST':
+        product = get_object_or_404(Product, pk=product_id)
+        product.votes_total += 1
+        product.save()
+        return redirect('/product/' + str(product.id))
