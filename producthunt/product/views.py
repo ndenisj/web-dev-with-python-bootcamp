@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.contrib.auth.models import User
 from .models import Product
 
 
@@ -41,6 +42,17 @@ def create(request):
 
 
 @login_required(login_url='login')
+def list(request):
+    user = request.user
+    products = Product.objects.filter(hunter=user)
+    context = {
+        'page_title': 'My products',
+        'products': products,
+    }
+    return render(request, 'product/list.html', context)
+
+
+@login_required(login_url='login')
 def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     context = {
@@ -57,3 +69,12 @@ def upvote(request, product_id):
         product.votes_total += 1
         product.save()
         return redirect('/product/' + str(product.id))
+
+
+@login_required(login_url='login')
+def delete(request, product_id):
+    if request.method == 'POST':
+        product = get_object_or_404(Product, pk=product_id)
+        product.delete()
+        return redirect('list')
+

@@ -20,3 +20,10 @@ class Product(models.Model):
 
     def pub_date_pretty(self):
         return self.pub_date.strftime('%b %e %Y')
+
+    def pub_date_day(self):
+        return self.pub_date.strftime('%e')
+
+    def pub_date_mon(self):
+        return self.pub_date.strftime('%b')
+
