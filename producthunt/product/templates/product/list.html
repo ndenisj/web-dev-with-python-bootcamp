@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'product/list.css' %}"/>
+<div class="container">
+    <div class="row">
+        <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+            <ul class="event-list">
+
+                {% if products %}
+                    {% for product in products %}
+                    <li>
+                        <time datetime="2014-07-20 2000">
+                            <span class="day">{{ product.pub_date_day }}</span>
+                            <span class="month">{{ product.pub_date_mon }}</span>
+                        </time>
+                        <img alt="" src="{{ product.icon.url }}" />
+                        <div class="info">
+                            <h2 class="title">{{ product.title }}</h2>
+                            <ul>
+                                <li style="width:33%;">{{ product.votes_total }} <span class="fa fa-thumbs-up"></span></li>
+                                <li style="width:50%;"><a href="{{ product.url }}">{{ product.url }} <span class="fa fa-globe"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="social">
+                            <ul>
+                                <li class="facebook" style="width:33%;"><a target="_blank" href="{% url 'detail' product.id %}"><span class="fa fa-eye"></span></a></li>
+                                <li class="twitter" style="width:34%;"><a href="{% url 'edit' product.id %}"><span class="fa fa-pencil"></span></a></li>
+                                <li class="google-plus" style="width:33%;"><a href="javascript:{document.getElementById('delete-form').submit()}"><span class="fa fa-trash-o"></span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+                        <form method="POST" action="{% url 'delete' product.id %}" id="delete-form">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>You have no products, please add a product!</strong>
+                    </div>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

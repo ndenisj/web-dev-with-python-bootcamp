@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'product/home.css' %}" />
+
+<div class="container">
+    <h3 class="h3">All Products </h3>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3 col-sm-6">
+            <div class="product-grid2">
+                <div class="product-image2">
+                    <a href="#">
+                        <img class="pic-1 img-fluid" src="{{ product.image.url }}">
+                        <img class="pic-2 img-fluid" src="{{ product.icon.url }}">
+                    </a>
+                    <a class="add-to-cart" href="{% url 'detail' product.id %}">View Product</a>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="{% url 'detail' product.id %}">{{ product.title }}</a></h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+
+{% endblock %}
