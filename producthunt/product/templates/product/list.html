@@ -25,7 +25,7 @@
                         <div class="social">
                             <ul>
                                 <li class="facebook" style="width:33%;"><a target="_blank" href="{% url 'detail' product.id %}"><span class="fa fa-eye"></span></a></li>
-                                <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-pencil"></span></a></li>
+                                <li class="twitter" style="width:34%;"><a href="{% url 'edit' product.id %}"><span class="fa fa-pencil"></span></a></li>
                                 <li class="google-plus" style="width:33%;"><a href="javascript:{document.getElementById('delete-form').submit()}"><span class="fa fa-trash-o"></span></a></li>
                             </ul>
                         </div>

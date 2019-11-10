@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'product/product-form.css' %}">
+<div class="container contact">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="contact-info">
+				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
+				<h2>Product</h2>
+				<h4>Edit product !</h4>
+			</div>
+		</div>
+		<div class="col-md-9">
+            {% if error %}
+            <div class="alert alert-danger mt-3" role="alert">
+              {{ error }}
+            </div>
+            {% endif %}
+            <form method="POST" action="{% url 'edit' product.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+			    <div class="contact-form">
+				<div class="form-group">
+				  <label class="control-label col-sm-2" for="title">TITLE:</label>
+				  <div class="col-sm-10">
+					<input type="text" class="form-control" id="title" value="{{ product.title }}" name="title">
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="control-label col-sm-2" for="url">URL:</label>
+				  <div class="col-sm-10">
+					<input type="url" class="form-control" id="url" value="{{ product.url }}" name="url">
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="control-label col-sm-2" for="body">BODY:</label>
+				  <div class="col-sm-10">
+					<textarea class="form-control" id="body" name="body">{{ product.body }}</textarea>
+				  </div>
+				</div>
+                <div class="form-group">
+				  <label class="control-label col-sm-2" for="icon">ICON:</label>
+				  <div class="col-sm-10">
+                      <div class="row">
+                          <div class="col">
+                              <input type="file" class="form-control" id="icon" name="icon">
+                          </div>
+                          <div class="col">
+                              <img src="{{ product.icon.url }}" class="img-fluid">
+                          </div>
+                      </div>
+				  </div>
+				</div>
+                <div class="form-group">
+				  <label class="control-label col-sm-2" for="image">IMAGE:</label>
+				  <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col">
+                              <input type="file" class="form-control" id="image" name="image">
+                          </div>
+                          <div class="col">
+                              <img src="{{ product.image.url }}" class="img-fluid">
+                          </div>
+                      </div>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Submit</button>
+				  </div>
+				</div>
+			</div>
+            </form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

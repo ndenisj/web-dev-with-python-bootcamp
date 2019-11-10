@@ -63,6 +63,36 @@ def detail(request, product_id):
 
 
 @login_required(login_url='login')
+def edit(request, product_id):
+    if request.method == 'POST':
+        product = get_object_or_404(Product, pk=product_id)
+        product.title = request.POST['title']
+        product.body = request.POST['body']
+        if 'icon' in request.FILES:
+            product.icon = request.FILES['icon']
+        if 'image' in request.FILES:
+            product.image = request.FILES['image']
+        if request.POST['url'].startswith('http://') or request.POST['url'].startswith('https://'):
+            product.url = request.POST['url']
+        else:
+            product.url = 'htt://' + request.POST['url']
+        # product.hunter = request.user
+
+        ################
+        # product.pub_date = timezone.datetime.now()
+        # product.votes_total = 1
+        product.save()
+        # redirect to details
+        return redirect('home')
+    else:
+        context = {
+            'page_title': 'Edit product',
+            'product': get_object_or_404(Product, pk=product_id)
+        }
+        return render(request, 'product/edit.html', context)
+
+
+@login_required(login_url='login')
 def upvote(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, pk=product_id)
